@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:geocoding/geocoding.dart';
+import 'GetLocation.dart';
 void main() {
   runApp(WeatherApp());
 }
@@ -13,7 +12,7 @@ class WeatherApp extends StatefulWidget {
 class _WeatherAppState extends State<WeatherApp> {
   @override
   Widget build(BuildContext context) {
-    getCurrentLocation();
+    getLocation();
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -88,24 +87,13 @@ class _WeatherAppState extends State<WeatherApp> {
     }
   }
 
-  //Get current Location
-  Future<void> getCurrentLocation() async{
-    try{
-      Position location = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-      print('The value of position is: $location');
+  //getLocation
+  void getLocation() async{
+    GetLocation getlocation = GetLocation();
+    await getlocation.getCurrentLocation();
 
-      getCityName(location.latitude, location.longitude);
-    }
-
-    catch(e){
-      print(e);
-    }
-  }
-
-  //Get city name
-  Future<String> getCityName(double lat, double lon) async{
-    List<Placemark> placemark = await placemarkFromCoordinates(lat, lon);
-    print('city name is: ${placemark[0].locality}');
-    return placemark[0].locality;
+    print(getlocation.latitude);
+    print(getlocation.longitude);
+    print(getlocation.city);
   }
 }
