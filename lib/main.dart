@@ -96,4 +96,5 @@ class _WeatherAppState extends State<WeatherApp> {
     print(getlocation.longitude);
     print(getlocation.city);
   }
+
 }
