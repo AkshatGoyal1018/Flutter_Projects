@@ -13,6 +13,7 @@ class _WeatherAppState extends State<WeatherApp> {
   @override
   Widget build(BuildContext context) {
     getLocation();
+    displayImage();
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -43,7 +44,8 @@ class _WeatherAppState extends State<WeatherApp> {
                         fontSize: 25.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.blue[500],
-                      ),),
+                      ),
+                    ),
                   ),
                   SizedBox(width: 10.0,),
                   Container(
@@ -88,13 +90,14 @@ class _WeatherAppState extends State<WeatherApp> {
   }
 
   //getLocation
-  void getLocation() async{
+  getLocation() async{
     GetLocation getlocation = GetLocation();
     await getlocation.getCurrentLocation();
 
     print(getlocation.latitude);
     print(getlocation.longitude);
     print(getlocation.city);
+    return getlocation.city;
   }
 
 }
