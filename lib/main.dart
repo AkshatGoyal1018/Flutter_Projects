@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'GetLocation.dart';
+import 'package:http/http.dart' as http;
 void main() {
   runApp(WeatherApp());
 }
@@ -14,6 +15,7 @@ class _WeatherAppState extends State<WeatherApp> {
   Widget build(BuildContext context) {
     getLocation();
     displayImage();
+    getTemp();
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -90,14 +92,18 @@ class _WeatherAppState extends State<WeatherApp> {
   }
 
   //getLocation
-  getLocation() async{
+  void getLocation() async{
     GetLocation getlocation = GetLocation();
     await getlocation.getCurrentLocation();
 
     print(getlocation.latitude);
     print(getlocation.longitude);
     print(getlocation.city);
-    return getlocation.city;
   }
 
+  //get current temp
+  Future<void> getTemp() async{
+    http.Response response = await http.get('http://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=e1eda5dcc14882b118de0036d94a66e6');
+    print(response.body);
+  }
 }
