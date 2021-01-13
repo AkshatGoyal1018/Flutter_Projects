@@ -14,7 +14,6 @@ class _WeatherAppState extends State<WeatherApp> {
   @override
   Widget build(BuildContext context) {
     getLocation();
-    displayImage();
     getTemp();
     return MaterialApp(
       home: Scaffold(
